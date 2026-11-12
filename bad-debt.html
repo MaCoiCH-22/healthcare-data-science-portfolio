@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="An analyst-led Python application for cleaning and standardizing hospital Medicare bad debt logs.">
+<meta property="og:description" content="An analyst-led Python application for cleaning and standardizing hospital Medicare bad debt logs.">
+<meta property="og:title" content="Medicare Bad Debt Log Scrubber">
+<title>Medicare Bad Debt Log Scrubber</title><link rel="stylesheet" href="style.css">
+<link rel="icon" href="assets/favicon.png">
+</head>
+<body><a href="#main" class="skip">Skip to content</a>
+<header class="mast"><div class="wrap nav">
+<a class="brand" href="index.html">MaCoi<i> Hollins</i></a>
+<nav class="navlinks" aria-label="Primary"><a href="index.html#work">Work</a><a href="index.html#about">About</a><a href="index.html#contact">Contact</a><a class="resume-link" href="assets/MaCoi_Hollins_Resume.pdf" download>Résumé <span aria-hidden="true">↓&#xfe0e;</span></a></nav>
+</div></header>
+<main id="main">
+<section class="case-head"><div class="wrap">
+  <div class="eyebrow">Reimbursement automation · Case study</div>
+  <h1>Medicare Bad Debt Log Scrubber</h1>
+  <p>I built an analyst-led Python application to turn inconsistent hospital Excel workbooks into standardized bad debt logs ready for review.</p>
+</div></section>
+<div class="case wrap">
+  <section class="case-copy" aria-label="Problem and application">
+    <div><h2>The problem</h2><p>Hospital workbooks vary in layout and data quality. Before reviewing a log, an analyst has to find the relevant sheets, identify the fields, and resolve irregularities in the file.</p></div>
+    <div><h2>What I built</h2><p>The application inspects incoming workbooks, supports analyst-guided field mapping, and automates the repeated cleanup and standardization steps. It flags exceptions for review and produces a consistent log for the analyst to check.</p></div>
+  </section>
+  <section class="case-copy" aria-label="Workflow and review">
+    <div><h2>How a workbook moves through the application</h2>
+      <ol>
+        <li><strong>Inspect the workbook.</strong> Identify its sheets and structure before applying a mapping.</li>
+        <li><strong>Guide the mapping.</strong> The analyst confirms how source fields correspond to the standardized log.</li>
+        <li><strong>Scrub and validate.</strong> The application applies cleanup rules, standardizes the log, and surfaces exceptions.</li>
+        <li><strong>Review the output.</strong> The analyst resolves exceptions and decides when the log is ready.</li>
+      </ol>
+    </div>
+    <div><h2>Why the analyst stays in control</h2><p>Similar column names can mean different things across hospital files. Analyst review keeps those decisions explicit, especially when the workbook structure or data is ambiguous.</p>
+    <h2>Scope</h2><p>This case study describes the workflow at a high level. Employer source code, client workbooks, and patient data are confidential.</p></div>
+  </section>
+</div>
+</main>
+<footer id="contact" class="footer"><div class="wrap">
+<h2>Contact MaCoi</h2>
+<address class="contact-links">
+  <a href="mailto:mcoi22@outlook.com">mcoi22@outlook.com</a>
+  <a href="mailto:mhollins@sandiego.edu">mhollins@sandiego.edu</a>
+  <a href="https://github.com/MaCoiCH-22">GitHub <span aria-hidden="true">↗</span></a>
+</address>
+</div></footer>
+</body></html>
