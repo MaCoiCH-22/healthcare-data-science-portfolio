@@ -1,0 +1,24 @@
+Python 3.12.14
+SQLite 3.53.1
+test_bad_batch_does_not_replace_existing_output (test_quality.PipelineTests.test_bad_batch_does_not_replace_existing_output) ... ok
+test_fixture_counts_reconcile_across_resources_rules_and_feeds (test_quality.PipelineTests.test_fixture_counts_reconcile_across_resources_rules_and_feeds) ... ok
+test_fixture_regeneration_and_report_are_byte_reproducible (test_quality.PipelineTests.test_fixture_regeneration_and_report_are_byte_reproducible) ... ok
+test_nonfinite_number_and_invalid_envelope_are_rejected (test_quality.PipelineTests.test_nonfinite_number_and_invalid_envelope_are_rejected) ... ok
+test_sqlite_lineage_matches_bytes_and_accepted_resources_have_no_bad_dependencies (test_quality.PipelineTests.test_sqlite_lineage_matches_bytes_and_accepted_resources_have_no_bad_dependencies) ... ok
+test_cross_patient_observation_detected_with_all_refs_resolved (test_quality.RuleTests.test_cross_patient_observation_detected_with_all_refs_resolved) ... ok
+test_duplicate_identity_quarantines_all_collisions_and_unresolved_source (test_quality.RuleTests.test_duplicate_identity_quarantines_all_collisions_and_unresolved_source) ... ok
+test_encounter_period_reversed_and_unsupported_class_are_direct_errors (test_quality.RuleTests.test_encounter_period_reversed_and_unsupported_class_are_direct_errors) ... ok
+test_malformed_entry_is_counted_and_quarantined (test_quality.RuleTests.test_malformed_entry_is_counted_and_quarantined) ... ok
+test_modifier_and_non_finalized_observation_do_not_enter_analysis (test_quality.RuleTests.test_modifier_and_non_finalized_observation_do_not_enter_analysis) ... ok
+test_outside_period_is_warning_and_time_offsets_are_comparable (test_quality.RuleTests.test_outside_period_is_warning_and_time_offsets_are_comparable) ... ok
+test_quantity_requires_scalar_without_competing_choice_or_comparator (test_quality.RuleTests.test_quantity_requires_scalar_without_competing_choice_or_comparator) ... ok
+test_quarantine_closure_when_referenced_patient_is_invalid (test_quality.RuleTests.test_quarantine_closure_when_referenced_patient_is_invalid) ... ok
+test_relative_and_urn_reference_resolution_is_independent_of_entry_order (test_quality.RuleTests.test_relative_and_urn_reference_resolution_is_independent_of_entry_order) ... ok
+test_relative_reference_requires_source_with_known_rest_base (test_quality.RuleTests.test_relative_reference_requires_source_with_known_rest_base) ... ok
+test_ucum_values_are_converted_and_ambiguous_codes_are_blocked (test_quality.RuleTests.test_ucum_values_are_converted_and_ambiguous_codes_are_blocked) ... ok
+test_wrong_type_uuid_is_rejected_and_dangling_relative_target_is_flagged (test_quality.RuleTests.test_wrong_type_uuid_is_rejected_and_dangling_relative_target_is_flagged) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.307s
+
+OK

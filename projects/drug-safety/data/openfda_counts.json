@@ -1,0 +1,78 @@
+{
+  "retrieved_utc": "2026-11-12",
+  "source_last_updated": "2026-10-28",
+  "counts": [
+    {
+      "year": 2023,
+      "key": "total",
+      "count": 1368573,
+      "url": "https://api.fda.gov/drug/event.json?search=receivedate%3A%5B20230101+TO+20231231%5D&limit=1"
+    },
+    {
+      "year": 2023,
+      "key": "drug",
+      "count": 16647,
+      "url": "https://api.fda.gov/drug/event.json?search=receivedate%3A%5B20230101+TO+20231231%5D+AND+patient.drug.openfda.generic_name.exact%3A%22IBUPROFEN%22&limit=1"
+    },
+    {
+      "year": 2023,
+      "key": "NAUSEA_all",
+      "count": 45031,
+      "url": "https://api.fda.gov/drug/event.json?search=receivedate%3A%5B20230101+TO+20231231%5D+AND+patient.reaction.reactionmeddrapt.exact%3A%22NAUSEA%22&limit=1"
+    },
+    {
+      "year": 2023,
+      "key": "NAUSEA_drug",
+      "count": 1120,
+      "url": "https://api.fda.gov/drug/event.json?search=receivedate%3A%5B20230101+TO+20231231%5D+AND+patient.reaction.reactionmeddrapt.exact%3A%22NAUSEA%22+AND+patient.drug.openfda.generic_name.exact%3A%22IBUPROFEN%22&limit=1"
+    },
+    {
+      "year": 2023,
+      "key": "HEADACHE_all",
+      "count": 35982,
+      "url": "https://api.fda.gov/drug/event.json?search=receivedate%3A%5B20230101+TO+20231231%5D+AND+patient.reaction.reactionmeddrapt.exact%3A%22HEADACHE%22&limit=1"
+    },
+    {
+      "year": 2023,
+      "key": "HEADACHE_drug",
+      "count": 990,
+      "url": "https://api.fda.gov/drug/event.json?search=receivedate%3A%5B20230101+TO+20231231%5D+AND+patient.reaction.reactionmeddrapt.exact%3A%22HEADACHE%22+AND+patient.drug.openfda.generic_name.exact%3A%22IBUPROFEN%22&limit=1"
+    },
+    {
+      "year": 2024,
+      "key": "total",
+      "count": 1319106,
+      "url": "https://api.fda.gov/drug/event.json?search=receivedate%3A%5B20240101+TO+20241231%5D&limit=1"
+    },
+    {
+      "year": 2024,
+      "key": "drug",
+      "count": 15483,
+      "url": "https://api.fda.gov/drug/event.json?search=receivedate%3A%5B20240101+TO+20241231%5D+AND+patient.drug.openfda.generic_name.exact%3A%22IBUPROFEN%22&limit=1"
+    },
+    {
+      "year": 2024,
+      "key": "NAUSEA_all",
+      "count": 44538,
+      "url": "https://api.fda.gov/drug/event.json?search=receivedate%3A%5B20240101+TO+20241231%5D+AND+patient.reaction.reactionmeddrapt.exact%3A%22NAUSEA%22&limit=1"
+    },
+    {
+      "year": 2024,
+      "key": "NAUSEA_drug",
+      "count": 1334,
+      "url": "https://api.fda.gov/drug/event.json?search=receivedate%3A%5B20240101+TO+20241231%5D+AND+patient.reaction.reactionmeddrapt.exact%3A%22NAUSEA%22+AND+patient.drug.openfda.generic_name.exact%3A%22IBUPROFEN%22&limit=1"
+    },
+    {
+      "year": 2024,
+      "key": "HEADACHE_all",
+      "count": 33750,
+      "url": "https://api.fda.gov/drug/event.json?search=receivedate%3A%5B20240101+TO+20241231%5D+AND+patient.reaction.reactionmeddrapt.exact%3A%22HEADACHE%22&limit=1"
+    },
+    {
+      "year": 2024,
+      "key": "HEADACHE_drug",
+      "count": 1225,
+      "url": "https://api.fda.gov/drug/event.json?search=receivedate%3A%5B20240101+TO+20241231%5D+AND+patient.reaction.reactionmeddrapt.exact%3A%22HEADACHE%22+AND+patient.drug.openfda.generic_name.exact%3A%22IBUPROFEN%22&limit=1"
+    }
+  ]
+}

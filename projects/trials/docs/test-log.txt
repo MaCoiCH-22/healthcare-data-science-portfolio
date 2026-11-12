@@ -1,0 +1,20 @@
+test_all_pages_are_read_and_counted (test_registry.CaptureTests.test_all_pages_are_read_and_counted) ... ok
+test_duplicate_page_records_fail (test_registry.CaptureTests.test_duplicate_page_records_fail) ... ok
+test_incomplete_capture_fails (test_registry.CaptureTests.test_incomplete_capture_fails) ... ok
+test_repeated_pagination_token_fails (test_registry.CaptureTests.test_repeated_pagination_token_fails) ... ok
+test_capture_checksum_rejects_tampering (test_registry.IntegrationTests.test_capture_checksum_rejects_tampering) ... ok
+test_independent_registry_reconciliation (test_registry.IntegrationTests.test_independent_registry_reconciliation) ... ok
+test_offline_summary_reproduces_the_delivered_json (test_registry.IntegrationTests.test_offline_summary_reproduces_the_delivered_json) ... ok
+test_review_queue_matches_unknown_timing_and_cohort (test_registry.IntegrationTests.test_review_queue_matches_unknown_timing_and_cohort) ... ok
+test_unique_overall_and_overlapping_memberships (test_registry.IntegrationTests.test_unique_overall_and_overlapping_memberships) ... ok
+test_yearly_and_group_year_metrics_roll_up (test_registry.IntegrationTests.test_yearly_and_group_year_metrics_roll_up) ... ok
+test_exact_cutoff_and_next_day (test_registry.TimingTests.test_exact_cutoff_and_next_day) ... ok
+test_incomplete_follow_up_is_rejected (test_registry.TimingTests.test_incomplete_follow_up_is_rejected) ... ok
+test_inconsistent_missing_and_future_dates (test_registry.TimingTests.test_inconsistent_missing_and_future_dates) ... ok
+test_known_and_ambiguous_partial_posting_dates (test_registry.TimingTests.test_known_and_ambiguous_partial_posting_dates) ... ok
+test_partial_precision_leap_date (test_registry.TimingTests.test_partial_precision_leap_date) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.250s
+
+OK

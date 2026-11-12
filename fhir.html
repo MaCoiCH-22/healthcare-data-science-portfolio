@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="MaCoi Hollins | Clinical research analytics and healthcare data science.">
+<title>Clinical Data Quality Engine</title><link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:,">
+</head>
+<body><a href="#main" class="skip">Skip to content</a>
+<header class="mast"><div class="wrap nav">
+<a class="brand" href="index.html">MaCoi<i> Hollins</i></a>
+<nav class="navlinks" aria-label="Primary"><a href="index.html#work">Work</a><a href="index.html#about">About</a><a href="index.html#contact">Contact</a><a class="resume-link" href="assets/MaCoi_Hollins_Resume.pdf" download>Résumé <span aria-hidden="true">↓&#xfe0e;</span></a></nav>
+</div></header>
+<main id="main"><section class="case-head"><div class="wrap"><div class="eyebrow">Health data engineering · Case study</div><h1>Clinical Data Quality Engine</h1><p>A synthetic FHIR R4 pipeline that identifies quality failures and tracks which downstream records they affect.</p></div></section>
+<div class="case wrap case--fhir">
+<section class="quality-view" aria-label="FHIR validation explorer"><div class="quality-heading"><p class="eyebrow">Synthetic FHIR R4</p><h2>Where records land</h2><p>1,156 entries routed through the quality gate.</p></div>
+    <div class="quality-tiles"><div><strong>1,076</strong><span>Accepted</span></div><div><strong>52</strong><span>Direct failure</span></div><div><strong>28</strong><span>Downstream dependency</span></div></div><div class="quality-feeds"><h2>Inspect each feed</h2><div class="disclosures"><details open><summary>Ambulatory</summary><div class="disclosure-body"><p>376 accepted · 12 direct failure · 0 downstream dependency</p><div class="table-scroll" role="region" aria-label="Data table" tabindex="0"><table><thead><tr><th scope="col">Rule</th><th scope="col">Severity</th><th scope="col">Findings</th></tr></thead><tbody><tr><th scope="row">Duplicate identity</th><td>error</td><td>16</td></tr><tr><th scope="row">Observation outside encounter period</th><td>warning</td><td>4</td></tr><tr><th scope="row">UCUM unit incompatible with code</th><td>error</td><td>4</td></tr></tbody></table></div></div></details><details><summary>Community clinic</summary><div class="disclosure-body"><p>344 accepted · 20 direct failure · 20 downstream dependency</p><div class="table-scroll" role="region" aria-label="Data table" tabindex="0"><table><thead><tr><th scope="col">Rule</th><th scope="col">Severity</th><th scope="col">Findings</th></tr></thead><tbody><tr><th scope="row">Referenced resource is quarantined</th><td>error</td><td>28</td></tr><tr><th scope="row">Observation outside encounter period</th><td>warning</td><td>4</td></tr><tr><th scope="row">UCUM unit incompatible with code</th><td>error</td><td>4</td></tr><tr><th scope="row">Invalid or missing birth date</th><td>error</td><td>4</td></tr><tr><th scope="row">LOINC code unmapped or ambiguous</th><td>error</td><td>4</td></tr><tr><th scope="row">Invalid or missing encounter period</th><td>error</td><td>4</td></tr><tr><th scope="row">Reference missing from bundle or ambiguous</th><td>error</td><td>4</td></tr></tbody></table></div></div></details><details><summary>Virtual care</summary><div class="disclosure-body"><p>356 accepted · 20 direct failure · 8 downstream dependency</p><div class="table-scroll" role="region" aria-label="Data table" tabindex="0"><table><thead><tr><th scope="col">Rule</th><th scope="col">Severity</th><th scope="col">Findings</th></tr></thead><tbody><tr><th scope="row">Referenced resource is quarantined</th><td>error</td><td>8</td></tr><tr><th scope="row">Observation outside encounter period</th><td>warning</td><td>8</td></tr><tr><th scope="row">Reference missing or wrong target type</th><td>error</td><td>8</td></tr><tr><th scope="row">Invalid or missing observation time</th><td>error</td><td>4</td></tr><tr><th scope="row">Invalid or missing numeric quantity</th><td>error</td><td>4</td></tr><tr><th scope="row">Observation and encounter subjects differ</th><td>error</td><td>4</td></tr></tbody></table></div></div></details></div><p class="note">An entry can trigger several findings. Warnings alone do not quarantine a record.</p></div></section>
+<section class="case-copy">
+  <div><h2>The question</h2><p>When a data feed contains a bad identifier or an invalid reference, which entries can still be used? The engine makes those decisions visible for data engineering and clinical informatics teams.</p></div>
+  <div><h2>Trace the source of a failure</h2><p>Start with direct failures to find records that need correction. Downstream entries can then be checked against the repaired references.</p></div>
+</section>
+<section class="method"><details><summary>Methods and implementation</summary><div class="disclosure-body"><ol class="flow"><li>Synthetic FHIR R4 bundles</li><li>Structure and rule checks</li><li>Dependency quarantine</li><li>SQLite lineage</li><li>Quality report</li></ol>
+<p>The pipeline checks selected Patient, Encounter, and Observation fields and references. It stores batch and entry identifiers, records findings, and exports aggregates. The local policy includes a limited laboratory terminology set and measurement checks.</p></div></details></section>
+<section class="case-copy">
+  <div><h2>Limitations</h2><p>All feeds are generated fixtures. Rules cover a deliberately bounded subset of R4 and local policy. Real feeds may require profile validation, a terminology service, external-reference resolution, and privacy and governance review.</p></div>
+  <div><h2>What I’d check next</h2><p>A feed owner could use the counts to trace a cluster of failed entries to its upstream cause. For wider deployment, run the rules alongside a full profile validator and test error handling against more representative integrations.</p></div>
+</section>
+<section class="source"><h2>Sources and reproduction</h2><p>The project bundle includes the deterministic fixture generator, validation pipeline, SQLite schema, and tests.</p><p><a href="https://hl7.org/fhir/R4/bundle.html">FHIR R4 Bundle</a> · <a href="https://hl7.org/fhir/R4/references.html">R4 resource references</a> · <a href="assets/fhir_summary.json" download>Download explorer data</a> · <a href="assets/fhir_source.zip" download>Download project source</a></p><pre><code>python3 run.py generate .work/synthetic
+python3 run.py validate .work/synthetic .work/audit</code></pre></section>
+</div></main>
+<footer id="contact" class="footer"><div class="wrap"><h2>Find me on GitHub.</h2>
+<a class="text-link" href="https://github.com/MaCoiCH-22">MaCoi Hollins on GitHub <span aria-hidden="true">→</span></a>
+<p class="small">MaCoi Hollins · Independent portfolio projects developed with AI assistance.</p>
+</div></footer>
+</body></html>
