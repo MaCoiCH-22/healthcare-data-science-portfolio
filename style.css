@@ -213,3 +213,12 @@ summary:hover{background:#9a235e0c}
 }
 
 .featured-project{margin-block:0 20px;background:#e3e9d6}
+.scrub-preview{display:grid;gap:10px;grid-column:1/-1;padding:clamp(20px,4vw,38px);background:#243a2e;color:#f5f1e6}
+.scrub-preview strong{font-size:clamp(1.4rem,4vw,2.3rem)}
+.scrub-preview span{font-size:.9rem}
+.forest{margin:0 0 24px}
+.forest svg{display:block;width:100%;min-width:480px;max-width:750px;font:13px system-ui,sans-serif;fill:#243a2e}
+.forest figcaption{margin-top:8px}
+#demo-form label{display:inline-grid;gap:6px;margin:8px 12px 12px 0}
+#demo-form select{padding:8px;background:#fbf9f3;color:#243a2e}
+#demo .button{cursor:pointer}

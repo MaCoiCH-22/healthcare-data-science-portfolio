@@ -7,6 +7,7 @@
 <meta property="og:title" content="Medicare Bad Debt Log Scrubber">
 <title>Medicare Bad Debt Log Scrubber</title><link rel="stylesheet" href="style.css">
 <link rel="icon" href="assets/favicon.png">
+<script src="assets/scrubber-demo.js" defer></script>
 </head>
 <body><a href="#main" class="skip">Skip to content</a>
 <header class="mast"><div class="wrap nav">
@@ -20,6 +21,25 @@
   <p>I built an analyst-led Python application to turn inconsistent hospital Excel workbooks into standardized bad debt logs ready for review.</p>
 </div></section>
 <div class="case wrap">
+  <section id="demo">
+    <h2>Try a fictional workbook</h2>
+    <p>This browser demo illustrates the mapping and review steps with invented records. The original application uses Python.</p>
+    <div class="table-scroll" tabindex="0"><table>
+      <caption>Before standardization</caption><thead><tr><th scope="col">Acct Ref</th><th scope="col">Outstanding $</th></tr></thead>
+      <tbody><tr><td>A-101</td><td>$120.00</td></tr><tr><td>a-102</td><td>85.50</td></tr><tr><td>A-101</td><td>120</td></tr><tr><td>A-103</td><td></td></tr><tr><td>A-104</td><td>$1,020.25</td></tr></tbody>
+    </table></div>
+    <form id="demo-form">
+      <label>Map account ID<select name="account"><option value="0">Acct Ref</option><option value="1">Outstanding $</option></select></label>
+      <label>Map balance<select name="balance"><option value="1">Outstanding $</option><option value="0">Acct Ref</option></select></label>
+      <button class="button" type="submit">Standardize sample</button>
+    </form>
+    <p id="demo-status" role="status"></p>
+    <div id="demo-results" hidden>
+      <div class="table-scroll" tabindex="0"><table><caption>Standardized log</caption><thead><tr><th scope="col">Account ID</th><th scope="col">Balance (USD)</th></tr></thead><tbody id="demo-clean"></tbody></table></div>
+      <div class="table-scroll" tabindex="0"><table><caption>Analyst review queue</caption><thead><tr><th scope="col">Source row</th><th scope="col">Account</th><th scope="col">Reason</th></tr></thead><tbody id="demo-exceptions"></tbody></table></div>
+    </div>
+  </section>
+
   <section class="case-copy" aria-label="Problem and application">
     <div><h2>The problem</h2><p>Hospital workbooks vary in layout and data quality. Before reviewing a log, an analyst has to find the relevant sheets, identify the fields, and resolve irregularities in the file.</p></div>
     <div><h2>What I built</h2><p>The application inspects incoming workbooks, supports analyst-guided field mapping, and automates the repeated cleanup and standardization steps. It flags exceptions for review and produces a consistent log for the analyst to check.</p></div>
@@ -41,8 +61,7 @@
 <footer id="contact" class="footer"><div class="wrap">
 <h2>Contact MaCoi</h2>
 <address class="contact-links">
-  <a href="mailto:mcoi22@outlook.com">mcoi22@outlook.com</a>
-  <a href="mailto:mhollins@sandiego.edu">mhollins@sandiego.edu</a>
+  <a href="mailto:mcoi22@outlook.com">Email MaCoi · mcoi22@outlook.com</a>
   <a href="https://github.com/MaCoiCH-22">GitHub <span aria-hidden="true">↗</span></a>
 </address>
 </div></footer>

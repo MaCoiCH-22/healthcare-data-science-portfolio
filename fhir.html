@@ -27,14 +27,13 @@
   <div><h2>Limitations</h2><p>All feeds are generated fixtures. Rules cover a deliberately bounded subset of R4 and local policy. Real feeds may require profile validation, a terminology service, external-reference resolution, and privacy and governance review.</p></div>
   <div><h2>What I’d check next</h2><p>A feed owner could use the counts to trace a cluster of failed entries to its upstream cause. For wider deployment, run the rules alongside a full profile validator and test error handling against more representative integrations.</p></div>
 </section>
-<section class="source"><h2>Sources and reproduction</h2><p>The project bundle includes the deterministic fixture generator, validation pipeline, SQLite schema, and tests.</p><p><a href="https://hl7.org/fhir/R4/bundle.html">FHIR R4 Bundle</a> · <a href="https://hl7.org/fhir/R4/references.html">R4 resource references</a> · <a href="assets/fhir_summary.json" download>Download results JSON</a> · <a href="assets/fhir_source.zip" download>Download project source</a></p><pre><code>python3 run.py generate .work/synthetic
+<section class="source"><h2>Sources and reproduction</h2><p>The project bundle includes the deterministic fixture generator, validation pipeline, SQLite schema, and tests.</p><p><a href="https://hl7.org/fhir/R4/bundle.html">FHIR R4 Bundle</a> · <a href="https://hl7.org/fhir/R4/references.html">R4 resource references</a> · <a href="assets/fhir_summary.json" download>Download results JSON</a> · <a href="https://github.com/MaCoiCH-22/healthcare-data-science-portfolio/tree/main/projects/fhir">View source on GitHub</a></p><pre><code>python3 run.py generate .work/synthetic
 python3 run.py validate .work/synthetic .work/audit</code></pre></section>
 </div></main>
 <footer id="contact" class="footer"><div class="wrap">
 <h2>Contact MaCoi</h2>
 <address class="contact-links">
-  <a href="mailto:mcoi22@outlook.com">mcoi22@outlook.com</a>
-  <a href="mailto:mhollins@sandiego.edu">mhollins@sandiego.edu</a>
+  <a href="mailto:mcoi22@outlook.com">Email MaCoi · mcoi22@outlook.com</a>
   <a href="https://github.com/MaCoiCH-22">GitHub <span aria-hidden="true">↗</span></a>
 </address>
 </div></footer>
