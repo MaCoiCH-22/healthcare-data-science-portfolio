@@ -2,9 +2,9 @@
 
 Portfolio projects spanning clinical research analytics, health data quality, and pharmacovigilance methods.
 
-| Case study | Source and reproduction |
+| Project | Overview or source |
 | --- | --- |
-| [Medicare Bad Debt Log Scrubber](bad-debt.html) | Professional case study of analyst-led Python automation |
+| [Medicare Bad Debt Log Scrubber](bad-debt.html) | Analyst-led Python application for Medicare bad debt logs |
 | Clinical Trial Registry Intelligence | [Public registry cohort and code](projects/trials/README.md) |
 | Clinical Data Quality Engine | [Synthetic FHIR validation pipeline](projects/fhir/README.md) |
 | Drug Safety Reporting | [openFDA reporting odds methods](projects/drug-safety/README.md) |
