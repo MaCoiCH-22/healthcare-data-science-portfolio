@@ -2,7 +2,7 @@
 
 ## Source
 
-ClinicalTrials.gov API v2 `GET /api/v2/studies` and `GET /api/v2/version`. The packaged data timestamp is `2026-11-10T10:00:05` from the API. The UTC collection time was `2026-11-12T06:56:28+00:00`. The capture verifies a stable version before and after pagination and compares unique retrieved counts against the API-reported total for each search. The snapshot is a project-specific selection of API fields with cohort membership metadata, gzip compression and an adjacent SHA-256 checksum.
+ClinicalTrials.gov API v2 `GET /api/v2/studies` and `GET /api/v2/version`. The historical data timestamp is `2026-11-10T10:00:05` from the API. The UTC collection time was `2026-11-12T06:56:28+00:00`. The capture verifies a stable version before and after pagination and compares unique retrieved counts against the API-reported total for each search. The snapshot is a project-specific selection of API fields with cohort membership metadata, gzip compression and an adjacent SHA-256 checksum.
 
 The three independent `query.cond` terms are Asthma, Breast Cancer, and Type 2 Diabetes. Each request applies `AREA[StudyType]INTERVENTIONAL AND AREA[PrimaryCompletionDate]RANGE[01/01/2018,12/31/2023]`. Local eligibility requires interventional type and an actual, valid primary completion date entirely in the date window. Search semantics are controlled by the registry and can include synonyms or secondary conditions. The portfolio uses search group names as labels without asserting diagnostic adjudication.
 

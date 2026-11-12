@@ -199,3 +199,15 @@ summary:hover{background:#9a235e0c}
   .case-copy>div{padding:22px 14px}
   .case table th,.case table td{padding:7px 8px}
 }
+
+.footer .contact-links {
+  display: grid;
+  gap: 6px;
+  font-style: normal;
+  overflow-wrap: anywhere;
+}
+.footer .contact-links a {
+  width: fit-content;
+  padding-block: 3px;
+  text-underline-offset: 4px;
+}

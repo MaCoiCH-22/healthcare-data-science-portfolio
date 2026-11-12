@@ -1,10 +1,8 @@
 """Exercise source pagination, date logic, integrity, and independent reconciliation."""
 
-from collections import Counter
 import csv
 from datetime import date
 import io
-import json
 from pathlib import Path
 import sqlite3
 import sys
@@ -99,49 +97,63 @@ class TimingTests(unittest.TestCase):
 class IntegrationTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.work = tempfile.TemporaryDirectory()
-        cls.path = Path(cls.work.name)
-        cls.payload = analyze.build(registry.DEFAULT_SNAPSHOT, cls.path)
-        cls.snapshot, _ = analyze.load_snapshot(registry.DEFAULT_SNAPSHOT)
+        work = tempfile.TemporaryDirectory()
+        cls.addClassCleanup(work.cleanup)
+        cls.path = Path(work.name)
+        cls.snapshot_path = cls.path / "fixture.json.gz"
+        ids = [f"NCT{number:08d}" for number in range(1, 5)]
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.work.cleanup()
+        def study(nct, status, posted=None):
+            dates = {
+                "overallStatus": status,
+                "primaryCompletionDateStruct": {"date": "2020-03-09", "type": "ACTUAL"},
+            }
+            if posted:
+                dates["resultsFirstPostDateStruct"] = {"date": posted, "type": "ACTUAL"}
+            return {
+                "protocolSection": {
+                    "identificationModule": {"nctId": nct},
+                    "designModule": {"studyType": "INTERVENTIONAL"},
+                    "statusModule": dates,
+                },
+                "hasResults": posted is not None,
+            }
 
-    def test_offline_summary_reproduces_the_delivered_json(self):
-        expected = json.loads((ROOT / "output/trials_summary.json").read_text())
-        self.assertEqual(self.payload, expected)
+        first = study(ids[0], "COMPLETED", "2021-02-01")
+        uncertain = study(ids[1], "COMPLETED", "2021-03")
+        absent = study(ids[2], "COMPLETED")
+        terminated = study(ids[3], "TERMINATED")
+        matches = {
+            "Asthma": [first, uncertain],
+            "Breast Cancer": [first, absent],
+            "Type 2 Diabetes": [terminated],
+        }
+
+        def fixture_api(endpoint, query=None):
+            if endpoint == "version":
+                return {"dataTimestamp": "2026-11-10T12:00:00"}
+            studies = matches[query["query.cond"]]
+            return {"totalCount": len(studies), "studies": studies}
+
+        with patch("registry.get_json", side_effect=fixture_api):
+            registry.capture(cls.snapshot_path)
+        cls.payload = analyze.build(cls.snapshot_path, cls.path)
+
+    def test_fixture_counts_and_timing(self):
+        overall = self.payload["overall"]
+        self.assertEqual(self.payload["studies"], 4)
+        self.assertEqual(overall["eligible"], 3)
+        self.assertEqual(overall["posted"], 2)
+        self.assertEqual(overall["posted_365"], 1)
+        self.assertEqual(overall["unknown_timing"], 1)
+        self.assertEqual(overall["not_posted"], 1)
 
     def test_capture_checksum_rejects_tampering(self):
         bad = self.path / "altered.gz"
-        bad.write_bytes(registry.DEFAULT_SNAPSHOT.read_bytes() + b"x")
+        bad.write_bytes(self.snapshot_path.read_bytes() + b"x")
         bad.with_suffix(".gz.sha256").write_text(self.payload["snapshot_sha256"])
         with self.assertRaisesRegex(ValueError, "SHA-256 mismatch"):
             analyze.load_snapshot(bad)
-
-    def test_independent_registry_reconciliation(self):
-        # Independently reconcile source-level status/availability counts and the exact-date lower bound.
-        status_counter = Counter()
-        known_exact_timely = 0
-        posted = 0
-        for record in self.snapshot["studies"].values():
-            status = record["protocolSection"]["statusModule"]
-            primary = status["primaryCompletionDateStruct"]
-            if primary["type"] != "ACTUAL" or not 2018 <= int(primary["date"][:4]) <= 2023:
-                continue
-            status_counter[status["overallStatus"]] += 1
-            if status["overallStatus"] != "COMPLETED" or not record["hasResults"]:
-                continue
-            posted += 1
-            publication = status.get("resultsFirstPostDateStruct", {})
-            date_text = publication.get("date", "")
-            if publication.get("type") == "ACTUAL" and len(date_text) == len(primary["date"]) == 10:
-                lag = (date.fromisoformat(date_text) - date.fromisoformat(primary["date"])).days
-                known_exact_timely += 0 <= lag <= 365
-        actual_status_counts = {item["status"]: item["count"] for item in self.payload["statuses"]}
-        self.assertEqual(dict(status_counter), actual_status_counts)
-        self.assertEqual(posted, self.payload["overall"]["posted"])
-        self.assertLessEqual(known_exact_timely, self.payload["overall"]["posted_365"])
 
     def test_unique_overall_and_overlapping_memberships(self):
         groups = self.payload["groups"]

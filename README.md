@@ -1,4 +1,4 @@
-# MaCoi Hollins | Healthcare Data Science Portfolio
+# MaCoi Hollins | Healthcare Analytics & Data Science Portfolio
 
 Portfolio projects spanning clinical research analytics, health data quality, and pharmacovigilance methods.
 
@@ -13,3 +13,7 @@ Portfolio projects spanning clinical research analytics, health data quality, an
 ## Preview locally
 
 Run `python3 -m http.server --bind 127.0.0.1 8080` from this directory, then open http://127.0.0.1:8080. The case studies render and expand without JavaScript. Project READMEs describe data provenance, scope, and verification.
+
+## Run the offline checks
+
+From the repository root, run `python3 check.py` with Python 3.11 or newer. The trials suite uses synthetic records to exercise the pipeline from capture through SQLite and the review queue. The historical study snapshot is separate from the public checkout.

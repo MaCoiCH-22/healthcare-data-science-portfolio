@@ -21,22 +21,21 @@ Eight included records match multiple search terms. The group rows can overlap a
 
 Use Python 3.10+ with SQLite 3.30+ and no external Python dependencies. Run from this directory.
 
+Run the offline suite against synthetic records:
+
 ```sh
-python3 src/analyze.py
 python3 -m unittest discover -s tests -v
-python3 src/review_queue.py --timing unknown > output/unknown_timing_review.csv
 ```
 
-If you already have the original compressed snapshot, the first command verifies its checksum and regenerates `output/trials.sqlite` and `output/trials_summary.json` offline. The review command produces a traceable CSV with public NCT URLs. To filter, pass `--cohort asthma`, `--cohort breast-cancer`, or `--cohort type-2-diabetes`. Use `--timing after_365` or `--timing not_posted` for larger queues and `--limit` to control export size.
-
-The historical compressed snapshot is not included in this public repository. To capture the current registry, use the public API.
+Capture and analyze the current registry separately:
 
 ```sh
 python3 src/registry.py --snapshot data/current_registry.json.gz
 python3 src/analyze.py --snapshot data/current_registry.json.gz --out-dir output/current
+python3 src/review_queue.py --db output/current/trials.sqlite --timing unknown
 ```
 
-Live results can change. Keep the packaged capture and checksum together to reproduce the findings above.
+The public repository includes the historical summary and checksum. Replaying those exact results requires the original snapshot, which is separate from this repository. A fresh capture can produce different results.
 
 ## How the system works
 

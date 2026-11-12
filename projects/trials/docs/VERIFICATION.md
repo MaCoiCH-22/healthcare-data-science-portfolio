@@ -1,6 +1,8 @@
 # Verification
 
-Executed November 12, 2026, using Python 3.12.14 and SQLite 3.53.1.
+The table below describes historical verification using the original capture. The public checkout contains the summary and checksum; the offline test suite uses synthetic records to verify capture, timing, SQLite aggregation, overlapping memberships and the review queue. Run it with `python3 check.py` from the repository root.
+
+Historical checks executed November 12, 2026, using Python 3.12.14 and SQLite 3.53.1.
 
 | Check | Observed result |
 | --- | --- |

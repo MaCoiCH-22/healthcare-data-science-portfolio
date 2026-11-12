@@ -2,21 +2,23 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="MaCoi Hollins | Clinical research analytics and healthcare data science.">
+<meta name="description" content="An openFDA analysis of reporting odds ratios for two reactions across two reporting years.">
+<meta property="og:description" content="An openFDA analysis of reporting odds ratios for two reactions across two reporting years.">
+<meta property="og:title" content="Drug Safety Reporting">
 <title>Drug Safety Reporting</title><link rel="stylesheet" href="style.css">
-<link rel="icon" href="data:,">
+<link rel="icon" href="assets/favicon.png">
 </head>
 <body><a href="#main" class="skip">Skip to content</a>
 <header class="mast"><div class="wrap nav">
 <a class="brand" href="index.html">MaCoi<i> Hollins</i></a>
 <nav class="navlinks" aria-label="Primary"><a href="index.html#work">Work</a><a href="index.html#about">About</a><a href="index.html#contact">Contact</a><a class="resume-link" href="assets/MaCoi_Hollins_Resume.pdf" download>Résumé <span aria-hidden="true">↓&#xfe0e;</span></a></nav>
 </div></header>
-<main id="main"><section class="case-head"><div class="wrap"><div class="eyebrow">Pharmacovigilance · Methods study</div><h1>Drug Safety Reporting</h1><p>A reporting-odds example using aggregate openFDA report counts, with the comparator and uncertainty in view.</p></div></section>
+<main id="main"><section class="case-head"><div class="wrap"><div class="eyebrow">Pharmacovigilance · Methods study</div><h1>Drug Safety Reporting</h1><p>A comparison of reporting odds for nausea and headache in openFDA adverse-event reports from 2023 and 2024.</p></div></section>
 <div class="case wrap case--drug-safety">
 <section class="safety-view" aria-label="Drug reporting odds explorer"><h2>Reporting odds by reaction</h2><div class="odds-grid"><article class="odds-card"><h3>Nausea</h3><div class="odds-pair"><div><span>2023</span><strong>2.15</strong><small>2.02–2.28 interval</small></div><div><span>2024</span><strong>2.75</strong><small>2.60–2.91 interval</small></div></div><details><summary>Inspect report counts</summary><div class="disclosure-body"><div class="table-scroll" role="region" aria-label="Data table" tabindex="0"><table><thead><tr><th scope="col">Year</th><th scope="col">Drug and term</th><th scope="col">Drug only</th><th scope="col">Term only</th><th scope="col">Neither</th></tr></thead><tbody><tr><th scope="row">2023</th><td>1,120</td><td>15,527</td><td>43,911</td><td>1,308,015</td></tr><tr><th scope="row">2024</th><td>1,334</td><td>14,149</td><td>43,204</td><td>1,260,419</td></tr></tbody></table></div></div></details></article><article class="odds-card"><h3>Headache</h3><div class="odds-pair"><div><span>2023</span><strong>2.38</strong><small>2.23–2.54 interval</small></div><div><span>2024</span><strong>3.36</strong><small>3.16–3.56 interval</small></div></div><details><summary>Inspect report counts</summary><div class="disclosure-body"><div class="table-scroll" role="region" aria-label="Data table" tabindex="0"><table><thead><tr><th scope="col">Year</th><th scope="col">Drug and term</th><th scope="col">Drug only</th><th scope="col">Term only</th><th scope="col">Neither</th></tr></thead><tbody><tr><th scope="row">2023</th><td>990</td><td>15,657</td><td>34,992</td><td>1,316,934</td></tr><tr><th scope="row">2024</th><td>1,225</td><td>14,258</td><td>32,525</td><td>1,271,098</td></tr></tbody></table></div></div></details></article></div><p class="note">95% log-Wald intervals describe sampling variation. These are reporting odds ratios, with no estimate of patient risk.</p></section>
 <section class="case-copy">
-  <div><h2>Reading the comparison</h2><p>How does the reporting odds calculation change when the reaction term or receipt year changes? This methods study makes the denominator and comparator explicit.</p></div>
-  <div><h2>What the data shows</h2><p>For both terms in this query, the reporting odds ratios were higher in 2024 than in 2023. The comparison describes a shift in the selected report sets. Exposure and patient outcomes are outside the data used here.</p></div>
+  <div><h2>Reading the comparison</h2><p>The calculation compares how often each reaction appears in reports that list ibuprofen with how often it appears in reports that do not.</p></div>
+  <div><h2>What the data shows</h2><p>For both terms in this query, the reporting odds ratios were higher in 2024 than in 2023. The underlying reports cannot tell us how many people took the drug.</p></div>
 </section>
 <section class="method"><details><summary>Methods and implementation</summary><div class="disclosure-body"><ol class="flow"><li>openFDA aggregate queries</li><li>Frozen counts and query URLs</li><li>2×2 report tables</li><li>Reporting odds and intervals</li></ol>
 <p>Separate API totals identify reports with an indexed ibuprofen generic name, the selected reaction term, both, or neither. The ratio compares reaction reporting odds in matching and nonmatching reports. Receipt year is the year the report reached FDA. Report-level co-mention can involve multiple drugs and reactions.</p></div></details></section>
@@ -24,10 +26,14 @@
   <div><h2>Limitations</h2><p>Spontaneous reports lack an exposed population denominator. Duplicate reports, indication, co-medications, reporting incentives, and uneven drug-name mapping can shift the ratio. These results cannot establish incidence, causality, or a change in medication risk.</p></div>
   <div><h2>What I’d check next</h2><p>A safety reviewer could evaluate whether the pattern persists after restricting to primary suspect drugs, retaining the latest case version, or using an active comparator. That requires case-level data and a predeclared review protocol.</p></div>
 </section>
-<section class="source"><h2>Sources and reproduction</h2><p>The project bundle includes the frozen API totals, exact query URLs, code, and tests.</p><p><a href="https://open.fda.gov/apis/drug/event/">openFDA adverse event API</a> · <a href="https://www.fda.gov/drugs/surveillance-post-drug-approval-activities/fda-adverse-event-monitoring-system-aems">FDA safety reporting background</a> · <a href="assets/drug-safety_summary.json" download>Download explorer data</a> · <a href="assets/drug-safety_source.zip" download>Download project source</a></p><pre><code>python3 src/analysis.py</code></pre></section>
+<section class="source"><h2>Sources and reproduction</h2><p>The project bundle includes the frozen API totals, exact query URLs, code, and tests.</p><p><a href="https://open.fda.gov/apis/drug/event/">openFDA adverse event API</a> · <a href="https://www.fda.gov/drugs/surveillance-post-drug-approval-activities/fda-adverse-event-monitoring-system-aems">FDA safety reporting background</a> · <a href="assets/drug-safety_summary.json" download>Download results JSON</a> · <a href="assets/drug-safety_source.zip" download>Download project source</a></p><pre><code>python3 src/analysis.py</code></pre></section>
 </div></main>
-<footer id="contact" class="footer"><div class="wrap"><h2>Find me on GitHub.</h2>
-<a class="text-link" href="https://github.com/MaCoiCH-22">MaCoi Hollins on GitHub <span aria-hidden="true">→</span></a>
-<p class="small">MaCoi Hollins · Independent portfolio projects developed with AI assistance.</p>
+<footer id="contact" class="footer"><div class="wrap">
+<h2>Contact MaCoi</h2>
+<address class="contact-links">
+  <a href="mailto:mcoi22@outlook.com">mcoi22@outlook.com</a>
+  <a href="mailto:mhollins@sandiego.edu">mhollins@sandiego.edu</a>
+  <a href="https://github.com/MaCoiCH-22">GitHub <span aria-hidden="true">↗</span></a>
+</address>
 </div></footer>
 </body></html>
