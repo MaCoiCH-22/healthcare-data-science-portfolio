@@ -5,7 +5,7 @@
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font:1rem/1.62 var(--sans)}
 a{color:inherit}
-a:focus-visible,button:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--berry);outline-offset:5px}
+a:focus-visible,button:focus-visible,select:focus-visible,summary:focus-visible,.table-scroll:focus-visible{outline:3px solid var(--berry);outline-offset:5px}
 .mast a:focus-visible,.footer a:focus-visible{outline-color:var(--rose)}
 img{display:block;max-width:100%}
 h1,h2,h3,p{margin:0}
@@ -216,9 +216,36 @@ summary:hover{background:#9a235e0c}
 .scrub-preview{display:grid;gap:10px;grid-column:1/-1;padding:clamp(20px,4vw,38px);background:#243a2e;color:#f5f1e6}
 .scrub-preview strong{font-size:clamp(1.4rem,4vw,2.3rem)}
 .scrub-preview span{font-size:.9rem}
+[hidden]{display:none!important}
+.skip:not(:focus){clip-path:inset(50%);white-space:nowrap}
 .forest{margin:0 0 24px}
-.forest svg{display:block;width:100%;min-width:480px;max-width:750px;font:13px system-ui,sans-serif;fill:#243a2e}
+.forest svg{display:block;width:100%;max-width:750px;font:13px system-ui,sans-serif;fill:#243a2e}
 .forest figcaption{margin-top:8px}
-#demo-form label{display:inline-grid;gap:6px;margin:8px 12px 12px 0}
-#demo-form select{padding:8px;background:#fbf9f3;color:#243a2e}
+.odds-pair>div{min-width:0}
+.odds-pair strong{font-size:clamp(2.1rem,6vw,5.5rem)}
+.scrub-overview p,.demo-intro{max-width:66ch}
+.scrub-overview .flow{margin:20px 0}
+.scrub-layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:20px;margin-top:20px;align-items:start}
+.scrub-panel{min-width:0;padding:clamp(14px,3vw,30px);background:#faf7ef;border:1px solid var(--line)}
+.scrub-panel h3{margin:0 0 12px;font-size:clamp(1.65rem,3vw,2.5rem)}
+.scrub-panel .table-scroll{margin-block:12px}
+.scrub-panel table{line-height:1.35}
+.workbook-name{font-weight:700}
+.workbook-control{display:flex;flex-wrap:wrap;justify-content:space-between;gap:5px 14px;background:#e3e9d6;padding:10px 12px;overflow-wrap:anywhere}
+#demo-form{display:grid;gap:8px;margin-block:18px 10px}
+#demo-form label{font-weight:700}
+#demo-form select{width:100%;min-width:0;padding:10px;background:#fbf9f3;color:var(--ink);font:inherit}
+.demo-actions{display:flex;flex-wrap:wrap;gap:8px}
 #demo .button{cursor:pointer}
+#demo .button.secondary{color:var(--ink);border-color:var(--muted);background:transparent}
+#demo-status:not(:empty){border-left:3px solid var(--berry);padding-left:12px;margin-block:12px}
+.recon-values{display:grid;gap:6px}
+.recon-values>div{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid var(--line)}
+.recon-values dd{font-weight:700;margin:0;white-space:nowrap}
+.output-preview{margin-top:20px}
+.lineage{padding-inline-start:22px}
+.lineage li+li{margin-top:8px}
+.registry-lead h2{margin-bottom:10px}
+.year-chart>p{margin-bottom:12px}
+@media(max-width:780px){.scrub-layout{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:540px){.forest-chart{display:none}}

@@ -1,0 +1,10 @@
+nct_id,completion_year,primary_completion_date,results_first_post_date,has_results,timing,timing_detail,sponsor_class,registry_url
+NCT03742986,2023,2023-06-12,2022-02-25,1,unknown,posting_date_before_primary_completion,OTHER,https://clinicaltrials.gov/study/NCT03742986
+NCT00038727,2020,2020-02-28,2017-10-24,1,unknown,posting_date_before_primary_completion,NIH,https://clinicaltrials.gov/study/NCT00038727
+NCT02320253,2020,2020-09,2021-09-20,1,unknown,date_precision_crosses_window,OTHER,https://clinicaltrials.gov/study/NCT02320253
+NCT01446159,2019,2019-06-28,2018-08-28,1,unknown,posting_date_before_primary_completion,INDUSTRY,https://clinicaltrials.gov/study/NCT01446159
+NCT02509156,2019,2019-11,2020-11-05,1,unknown,date_precision_crosses_window,OTHER,https://clinicaltrials.gov/study/NCT02509156
+NCT00820170,2018,2018-08,2019-08-13,1,unknown,date_precision_crosses_window,OTHER,https://clinicaltrials.gov/study/NCT00820170
+NCT02251379,2018,2018-11,2019-11-04,1,unknown,date_precision_crosses_window,OTHER,https://clinicaltrials.gov/study/NCT02251379
+NCT02360774,2018,2018-08,2018-08-03,1,unknown,date_precision_overlaps_primary_completion,OTHER,https://clinicaltrials.gov/study/NCT02360774
+NCT02804750,2018,2018-09,2019-09-25,1,unknown,date_precision_crosses_window,INDUSTRY,https://clinicaltrials.gov/study/NCT02804750

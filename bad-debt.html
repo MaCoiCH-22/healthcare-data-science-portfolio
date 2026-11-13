@@ -14,47 +14,81 @@
 <a class="brand" href="index.html">MaCoi<i> Hollins</i></a>
 <nav class="navlinks" aria-label="Primary"><a href="index.html#work">Work</a><a href="index.html#about">About</a><a href="index.html#contact">Contact</a><a class="resume-link" href="assets/MaCoi_Hollins_Resume.pdf" download>Résumé <span aria-hidden="true">↓&#xfe0e;</span></a></nav>
 </div></header>
-<main id="main">
+<main id="main" tabindex="-1">
 <section class="case-head"><div class="wrap">
   <div class="eyebrow">Python application · Reimbursement automation</div>
   <h1>Medicare Bad Debt Log Scrubber</h1>
   <p>I built an analyst-led Python application to turn inconsistent hospital Excel workbooks into standardized bad debt logs ready for review.</p>
 </div></section>
 <div class="case wrap">
-  <section id="demo">
-    <h2>Try a fictional workbook</h2>
-    <p>This browser demo illustrates the mapping and review steps with invented records. The original application uses Python.</p>
-    <div class="table-scroll" tabindex="0"><table>
-      <caption>Before standardization</caption><thead><tr><th scope="col">Acct Ref</th><th scope="col">Outstanding $</th></tr></thead>
-      <tbody><tr><td>A-101</td><td>$120.00</td></tr><tr><td>a-102</td><td>85.50</td></tr><tr><td>A-101</td><td>120</td></tr><tr><td>A-103</td><td></td></tr><tr><td>A-104</td><td>$1,020.25</td></tr></tbody>
-    </table></div>
-    <form id="demo-form">
-      <label>Map account ID<select name="account"><option value="0">Acct Ref</option><option value="1">Outstanding $</option></select></label>
-      <label>Map balance<select name="balance"><option value="1">Outstanding $</option><option value="0">Acct Ref</option></select></label>
-      <button class="button" type="submit">Standardize sample</button>
-    </form>
-    <p id="demo-status" role="status"></p>
-    <div id="demo-results" hidden>
-      <div class="table-scroll" tabindex="0"><table><caption>Standardized log</caption><thead><tr><th scope="col">Account ID</th><th scope="col">Balance (USD)</th></tr></thead><tbody id="demo-clean"></tbody></table></div>
-      <div class="table-scroll" tabindex="0"><table><caption>Analyst review queue</caption><thead><tr><th scope="col">Source row</th><th scope="col">Account</th><th scope="col">Reason</th></tr></thead><tbody id="demo-exceptions"></tbody></table></div>
+  <section class="scrub-overview" aria-labelledby="workflow-title">
+    <h2 id="workflow-title">From source workbook to audit review</h2>
+    <p>Hospital Excel files can have stacked headers, repeated headings and several plausible dollar columns. The application inspects the workbook, lets the analyst confirm the physical column mapping, and reconciles the selected amounts before review.</p>
+    <ol class="flow"><li>Inspect workbook structure</li><li>Confirm field mappings</li><li>Reconcile claimed amounts</li><li>Review the log and audit evidence</li></ol>
+    <a class="text-link" href="#demo">Walk through a mapping decision</a>
+  </section>
+
+  <section id="demo" aria-labelledby="demo-title">
+    <h2 id="demo-title">Which column should feed the log?</h2>
+    <p class="demo-intro">In this fictional workbook, two columns contain dollar amounts. Compare each mapping with the claimed total on the separate Control Summary tab.</p>
+    <div class="scrub-layout">
+      <div class="scrub-panel workbook">
+        <h3>Inspect the workbook</h3>
+        <p class="workbook-name">Sample Hospital.xlsx · Medicare Detail</p>
+        <p>Rows 4 and 5 form the header. Data starts on row 6.</p>
+        <div class="table-scroll" role="region" aria-label="Synthetic Excel source rows" tabindex="0"><table id="sample-rows">
+          <caption>Medicare Detail · Excel columns A, B and C</caption>
+          <colgroup span="1"></colgroup><colgroup span="1"></colgroup><colgroup span="2"></colgroup>
+          <thead>
+            <tr><th scope="col" rowspan="2">Row</th><th scope="col" rowspan="2">A · Account ref</th><th scope="colgroup" colspan="2">Medicare balances</th></tr>
+            <tr><th scope="col">B · Total patient balance</th><th scope="col">C · Medicare bad debt claimed</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">6</th><td>DEMO-001</td><td data-cents="32000">$320.00</td><td data-cents="14000">$140.00</td></tr>
+            <tr><th scope="row">7</th><td>DEMO-002</td><td data-cents="41000">$410.00</td><td data-cents="16500">$165.00</td></tr>
+            <tr><th scope="row">8</th><td>DEMO-003</td><td data-cents="21000">$210.00</td><td data-cents="8000">$80.00</td></tr>
+          </tbody>
+        </table></div>
+        <div class="workbook-control"><span>Control Summary · Claimed bad debt</span><strong id="control-total" data-cents="38500">$385.00</strong></div>
+      </div>
+      <div class="scrub-panel">
+        <h3>Confirm the mapping</h3>
+        <p>The demo suggests C because its header specifies the claimed amount. B contains the broader patient balance.</p>
+        <form id="demo-form" hidden>
+          <label for="amount-column">Source for Bad Debt Claimed</label>
+          <select id="amount-column" name="amount" required>
+            <option value="">Select a column</option>
+            <option value="B">B · Total patient balance</option>
+            <option value="C">C · Medicare bad debt claimed</option>
+          </select>
+          <div class="demo-actions"><button class="button" type="submit">Compare totals</button><button class="button secondary" type="reset">Reset</button></div>
+        </form>
+        <p id="demo-status" role="status"></p>
+        <div id="demo-results" hidden>
+          <dl class="recon-values">
+            <div><dt>Mapped total</dt><dd id="mapped-total"></dd></div>
+            <div><dt>Control total</dt><dd id="compared-total"></dd></div>
+            <div><dt>Difference</dt><dd id="total-variance"></dd></div>
+          </dl>
+          <p>Both totals use the signed amounts shown in the workbook.</p>
+        </div>
+        <noscript><p>Column B totals $940.00, giving a $555.00 difference. Column C totals $385.00 and matches the control. With column C, the preview amounts for rows 6–8 are $140.00, $165.00 and $80.00.</p></noscript>
+      </div>
+    </div>
+    <div id="demo-output" class="scrub-panel output-preview" hidden>
+      <h3>Review the standardized log</h3>
+      <p>This preview shows three of the 23 output fields. The source tab identifies the origin of each line, and the mapping evidence identifies the input column and rows.</p>
+      <div class="table-scroll" role="region" aria-label="Standardized log preview" tabindex="0"><table>
+        <caption>Selected output fields</caption><thead><tr><th scope="col">Account number</th><th scope="col">Bad debt claimed</th><th scope="col">Source tab</th></tr></thead><tbody id="demo-clean"></tbody>
+      </table></div>
+      <p id="mapping-evidence" class="workbook-control"></p>
+      <p>A match supports this control check. Eligibility and approval require analyst review.</p>
     </div>
   </section>
 
-  <section class="case-copy" aria-label="Problem and application">
-    <div><h2>The problem</h2><p>Hospital workbooks vary in layout and data quality. Before reviewing a log, an analyst has to find the relevant sheets, identify the fields, and resolve irregularities in the file.</p></div>
-    <div><h2>What I built</h2><p>The application inspects incoming workbooks, supports analyst-guided field mapping, and automates the repeated cleanup and standardization steps. It flags exceptions for review and produces a consistent log for the analyst to check.</p></div>
-  </section>
-  <section class="case-copy" aria-label="Workflow and review">
-    <div><h2>How a workbook moves through the application</h2>
-      <ol>
-        <li><strong>Inspect the workbook.</strong> Identify its sheets and structure before applying a mapping.</li>
-        <li><strong>Guide the mapping.</strong> The analyst confirms how source fields correspond to the standardized log.</li>
-        <li><strong>Scrub and validate.</strong> The application applies cleanup rules, standardizes the log, and surfaces exceptions.</li>
-        <li><strong>Review the output.</strong> The analyst resolves exceptions and decides when the log is ready.</li>
-      </ol>
-    </div>
-    <div><h2>Why the analyst stays in control</h2><p>Similar column names can mean different things across hospital files. Analyst review keeps those decisions explicit, especially when the workbook structure or data is ambiguous.</p>
-    <h2>Scope</h2><p>Employer source code, client workbooks, and patient data are confidential.</p></div>
+  <section class="case-copy" aria-label="Application controls">
+    <div><h2>What the application produces</h2><p>The Python application writes a 23-column Excel log and records source and mapping decisions in a run manifest. A separate audit-prep workbook brings together source completeness, reconciliation evidence, and potential duplicate risks for analyst review.</p></div>
+    <div><h2>Where the analyst decides</h2><p>The application checks saved mappings against the current workbook layout and lets an analyst confirm or override a suggestion. The launcher stops before audit preparation when scrubbing is incomplete. This browser walkthrough uses fictional data and illustrates one decision from the private application.</p></div>
   </section>
 </div>
 </main>
