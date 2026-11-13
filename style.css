@@ -230,8 +230,6 @@ summary:hover{background:#9a235e0c}
 .scrub-panel h3{margin:0 0 12px;font-size:clamp(1.65rem,3vw,2.5rem)}
 .scrub-panel .table-scroll{margin-block:12px}
 .scrub-panel table{line-height:1.35}
-.workbook-name{font-weight:700}
-.workbook-control{display:flex;flex-wrap:wrap;justify-content:space-between;gap:5px 14px;background:#e3e9d6;padding:10px 12px;overflow-wrap:anywhere}
 #demo-form{display:grid;gap:8px;margin-block:18px 10px}
 #demo-form label{font-weight:700}
 #demo-form select{width:100%;min-width:0;padding:10px;background:#fbf9f3;color:var(--ink);font:inherit}
@@ -239,9 +237,6 @@ summary:hover{background:#9a235e0c}
 #demo .button{cursor:pointer}
 #demo .button.secondary{color:var(--ink);border-color:var(--muted);background:transparent}
 #demo-status:not(:empty){border-left:3px solid var(--berry);padding-left:12px;margin-block:12px}
-.recon-values{display:grid;gap:6px}
-.recon-values>div{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid var(--line)}
-.recon-values dd{font-weight:700;margin:0;white-space:nowrap}
 .output-preview{margin-top:20px}
 .lineage{padding-inline-start:22px}
 .lineage li+li{margin-top:8px}
@@ -249,3 +244,22 @@ summary:hover{background:#9a235e0c}
 .year-chart>p{margin-bottom:12px}
 @media(max-width:780px){.scrub-layout{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:540px){.forest-chart{display:none}}
+
+.run-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;list-style:none;padding:0;margin:24px 0 12px}
+.run-steps li{border-top:3px solid var(--line);padding:8px 5px;color:var(--muted);font-weight:700}
+.run-steps [aria-current="step"]{border-color:var(--berry);color:var(--berry)}
+#demo-form.run-workspace{gap:0}
+.run-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:#e3e9d6}
+.run-workspace .scrub-layout{margin-top:12px}
+.run-review section>p,.run-review section>select{margin-bottom:14px}
+.run-review section>label{display:block;margin-bottom:6px}
+.run-notice{background:#f4e8de;border-left:3px solid var(--berry);padding:10px 12px}
+.run-review button:disabled{opacity:.55;cursor:default}
+.workbook details{border-top:1px solid var(--line);padding:10px 0}
+.workbook summary{cursor:pointer;font-weight:700}
+.workbook details p{margin-top:8px}
+.audit-evidence{margin:0 0 14px}
+.audit-evidence>div{border-bottom:1px solid var(--line);padding:8px 0}
+.audit-evidence dt{font-weight:700;overflow-wrap:anywhere}
+.audit-evidence dd{margin:2px 0 0}
+@media(max-width:540px){.run-steps{grid-template-columns:repeat(2,minmax(0,1fr))}.run-bar{align-items:flex-start}}

@@ -29,61 +29,78 @@
   </section>
 
   <section id="demo" aria-labelledby="demo-title">
-    <h2 id="demo-title">Which column should feed the log?</h2>
-    <p class="demo-intro">In this fictional workbook, two columns contain dollar amounts. Compare each mapping with the claimed total on the separate Control Summary tab.</p>
-    <div class="scrub-layout">
-      <div class="scrub-panel workbook">
-        <h3>Inspect the workbook</h3>
-        <p class="workbook-name">Sample Hospital.xlsx · Medicare Detail</p>
-        <p>Rows 4 and 5 form the header. Data starts on row 6.</p>
-        <div class="table-scroll" role="region" aria-label="Synthetic Excel source rows" tabindex="0"><table id="sample-rows">
-          <caption>Medicare Detail · Excel columns A, B and C</caption>
-          <colgroup span="1"></colgroup><colgroup span="1"></colgroup><colgroup span="2"></colgroup>
-          <thead>
-            <tr><th scope="col" rowspan="2">Row</th><th scope="col" rowspan="2">A · Account ref</th><th scope="colgroup" colspan="2">Medicare balances</th></tr>
-            <tr><th scope="col">B · Total patient balance</th><th scope="col">C · Medicare bad debt claimed</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">6</th><td>DEMO-001</td><td data-cents="32000">$320.00</td><td data-cents="14000">$140.00</td></tr>
-            <tr><th scope="row">7</th><td>DEMO-002</td><td data-cents="41000">$410.00</td><td data-cents="16500">$165.00</td></tr>
-            <tr><th scope="row">8</th><td>DEMO-003</td><td data-cents="21000">$210.00</td><td data-cents="8000">$80.00</td></tr>
-          </tbody>
-        </table></div>
-        <div class="workbook-control"><span>Control Summary · Claimed bad debt</span><strong id="control-total" data-cents="38500">$385.00</strong></div>
-      </div>
-      <div class="scrub-panel">
-        <h3>Confirm the mapping</h3>
-        <p>The demo suggests C because its header specifies the claimed amount. B contains the broader patient balance.</p>
-        <form id="demo-form" hidden>
-          <label for="amount-column">Source for Bad Debt Claimed</label>
-          <select id="amount-column" name="amount" required>
-            <option value="">Select a column</option>
-            <option value="B">B · Total patient balance</option>
-            <option value="C">C · Medicare bad debt claimed</option>
-          </select>
-          <div class="demo-actions"><button class="button" type="submit">Compare totals</button><button class="button secondary" type="reset">Reset</button></div>
-        </form>
-        <p id="demo-status" role="status"></p>
-        <div id="demo-results" hidden>
-          <dl class="recon-values">
-            <div><dt>Mapped total</dt><dd id="mapped-total"></dd></div>
-            <div><dt>Control total</dt><dd id="compared-total"></dd></div>
-            <div><dt>Difference</dt><dd id="total-variance"></dd></div>
-          </dl>
-          <p>Both totals use the signed amounts shown in the workbook.</p>
+    <h2 id="demo-title">Run a workbook through review</h2>
+    <p class="demo-intro">Follow a fictional hospital workbook from inspection to the standardized log and HCRIS audit prep. This browser simulation uses the workflow of the private Python application.</p>
+    <ol class="run-steps" id="run-steps" hidden>
+      <li aria-current="step">Inspect workbook</li><li>Review mapping</li><li>Scrub &amp; reconcile</li><li>Prepare audit workbook</li>
+    </ol>
+    <form id="demo-form" class="run-workspace" hidden>
+      <div class="run-bar"><strong>Sample Hospital.xlsx</strong><button type="reset" class="button secondary">Reset run</button></div>
+      <div class="scrub-layout">
+        <div class="scrub-panel workbook">
+          <h3>Source workbook</h3>
+          <details open><summary>Medicare Detail · visible</summary>
+            <p>Rows 4–5 contain stacked headings. The three detail records begin on row 6.</p>
+            <div class="table-scroll" role="region" aria-label="Medicare Detail worksheet" tabindex="0"><table id="detail-rows">
+              <caption>Medicare Detail</caption><colgroup span="1"></colgroup><colgroup span="1"></colgroup><colgroup span="2"></colgroup>
+              <thead><tr><th rowspan="2" scope="col">Row</th><th rowspan="2" scope="col">A · Account</th><th colspan="2" scope="colgroup">Medicare balances</th></tr>
+              <tr><th scope="col">B · Total patient balance</th><th scope="col">C · Bad debt claimed</th></tr></thead>
+              <tbody><tr><th scope="row">6</th><td>DEMO-001</td><td data-cents="32000">$320.00</td><td data-cents="-14000">−$140.00</td></tr>
+              <tr><th scope="row">7</th><td>DEMO-002</td><td data-cents="41000">$410.00</td><td data-cents="-16500">−$165.00</td></tr>
+              <tr><th scope="row">8</th><td>DEMO-003</td><td data-cents="21000">$210.00</td><td data-cents="-8000">−$80.00</td></tr></tbody>
+            </table></div>
+          </details>
+          <details><summary>Recoveries · visible</summary><p>Row 3 contains the header. This tab is classified as Recovery.</p>
+            <div class="table-scroll" role="region" aria-label="Recoveries worksheet" tabindex="0"><table id="recovery-rows"><caption>Recoveries</caption><thead><tr><th scope="col">Row</th><th scope="col">A · Account</th><th scope="col">B · Recovery amount</th></tr></thead>
+            <tbody><tr><th scope="row">4</th><td>DEMO-001</td><td data-cents="-2500">−$25.00</td></tr></tbody></table></div>
+          </details>
+          <details><summary>Control Summary · visible</summary><p>Workbook control for Medicare Detail, stated on a positive basis. Recoveries are tracked separately.</p><p><strong id="control-total" data-cents="38500">$385.00</strong></p></details>
+          <details><summary>Archive · hidden</summary><p>Excluded from the sample run. No archive rows enter the standardized log.</p></details>
         </div>
-        <noscript><p>Column B totals $940.00, giving a $555.00 difference. Column C totals $385.00 and matches the control. With column C, the preview amounts for rows 6–8 are $140.00, $165.00 and $80.00.</p></noscript>
+        <div class="scrub-panel run-review">
+          <section data-step="0" aria-labelledby="inspect-title">
+            <h3 id="inspect-title" tabindex="-1">Inspect the workbook</h3>
+            <p>Run inspection to see which sheets enter the log and which provide supporting evidence.</p>
+            <button id="inspect" class="button" type="button">Run inspection</button>
+          </section>
+          <section data-step="1" aria-labelledby="mapping-title" hidden>
+            <h3 id="mapping-title" tabindex="-1">Review the saved mapping</h3>
+            <p class="run-notice">The saved mapping points to column B, where the previous workbook had “Bad debt claimed.” B now contains “Total patient balance.”</p>
+            <p>The saved header now appears in C. Review the moved column and confirm which physical column to use for this run.</p>
+            <label for="amount-column">Source for BadDebtClaimed</label>
+            <select id="amount-column" name="amount">
+              <option value="">Choose a column</option><option value="B">B · Total patient balance</option><option value="C">C · Bad debt claimed</option>
+            </select>
+            <button class="button" type="submit">Confirm mapping and scrub</button>
+          </section>
+          <section data-step="2" aria-labelledby="recon-title" hidden>
+            <h3 id="recon-title" tabindex="-1">Reconcile the scrubbed log</h3>
+            <div id="recon-tabs"></div>
+            <p id="recon-note" class="run-notice"></p>
+            <div class="demo-actions"><button id="review-mapping" class="button secondary" type="button">Review mapping</button><button id="prepare-audit" class="button" type="button" disabled>Prepare audit workbook</button></div>
+          </section>
+          <section data-step="3" aria-labelledby="audit-title" hidden>
+            <h3 id="audit-title" tabindex="-1">Review the audit workbook</h3>
+            <p>Two detail tabs are accounted for. The Control Summary supports the reconciliation, and the hidden Archive is recorded as excluded.</p>
+            <dl class="audit-evidence">
+              <div><dt>Source_Tab_Audit</dt><dd id="tab-evidence"></dd></div>
+              <div><dt>Raw_vs_Scrubbed_Recon</dt><dd id="total-evidence"></dd></div>
+              <div><dt>HCRIS_Reconciliation</dt><dd>Awaiting HCRIS amounts for comparison.</dd></div>
+            </dl>
+            <button id="back-recon" class="button secondary" type="button">Back to reconciliation</button>
+          </section>
+          <p id="demo-status" role="status"></p>
+        </div>
       </div>
-    </div>
-    <div id="demo-output" class="scrub-panel output-preview" hidden>
-      <h3>Review the standardized log</h3>
-      <p>This preview shows three of the 23 output fields. The source tab identifies the origin of each line, and the mapping evidence identifies the input column and rows.</p>
-      <div class="table-scroll" role="region" aria-label="Standardized log preview" tabindex="0"><table>
-        <caption>Selected output fields</caption><thead><tr><th scope="col">Account number</th><th scope="col">Bad debt claimed</th><th scope="col">Source tab</th></tr></thead><tbody id="demo-clean"></tbody>
-      </table></div>
-      <p id="mapping-evidence" class="workbook-control"></p>
-      <p>A match supports this control check. Eligibility and approval require analyst review.</p>
-    </div>
+      <div id="demo-output" class="scrub-panel output-preview" hidden>
+        <h3>Standardized log preview</h3>
+        <p>Five of the 23 output fields are shown. Each line retains its workbook and tab. The last column displays source-row evidence for this walkthrough.</p>
+        <div class="table-scroll" role="region" aria-label="Standardized log preview" tabindex="0"><table>
+          <caption>Selected output fields and source evidence</caption><thead><tr><th scope="col">AccountNumber</th><th scope="col">PatientType</th><th scope="col">LogType</th><th scope="col">BadDebtClaimed</th><th scope="col">SourceFileTabName</th><th scope="col">Source cell</th></tr></thead><tbody id="demo-clean"></tbody>
+        </table></div>
+      </div>
+    </form>
+    <noscript><p>Inspection identifies two detail tabs, a control summary and a hidden archive. The saved B mapping points to a different field in this layout. Using column C, Medicare Detail goes from −$385.00 in the source to $385.00 in the standardized log. The Recovery tab stays at −$25.00. The audit workbook can then show the tab and amount evidence, with HCRIS amounts pending.</p></noscript>
   </section>
 
   <section class="case-copy" aria-label="Application controls">
