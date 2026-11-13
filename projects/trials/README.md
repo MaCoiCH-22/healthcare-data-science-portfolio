@@ -57,6 +57,6 @@ See [case study](docs/CASE_STUDY.md), [data dictionary](docs/DATA.md) and [verif
 
 ## Provenance
 
-MaCoi Hollins commissioned the portfolio. The implementation, analysis and tests were produced with material AI assistance. Individual contributions should be described using the portfolio’s contribution record as the work is reviewed.
+MaCoi Hollins commissioned the portfolio. The implementation, analysis and tests were produced with material AI assistance. See the [portfolio contribution record](../../CONTRIBUTIONS.md) for the documented project roles.
 
 Source data are from ClinicalTrials.gov and are subject to its [terms and conditions](https://clinicaltrials.gov/about-site/terms-conditions). See the [NLM API release bulletin](https://www.nlm.nih.gov/pubs/techbull/ma24/ma24_clinicaltrials_api.html) and [ClinicalTrials.gov glossary](https://clinicaltrials.gov/study-basics/glossary) for API and field context.

@@ -11,6 +11,8 @@ Portfolio projects spanning clinical research analytics, health data quality, an
 
 [Download the public résumé](assets/MaCoi_Hollins_Resume.pdf)
 
+See [project contributions](CONTRIBUTIONS.md) for authorship and scope.
+
 ## Preview locally
 
 Run `python3 -m http.server --bind 127.0.0.1 8080` from this directory, then open http://127.0.0.1:8080. The case studies render and expand without JavaScript. Project READMEs describe data provenance, scope, and verification.
