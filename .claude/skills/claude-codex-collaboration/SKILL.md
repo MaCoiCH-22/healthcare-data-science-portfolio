@@ -25,7 +25,7 @@ Use it for: scrubber brain-lane changes, anything touching PHI handling or money
 
 ## How to reach Codex (best available first)
 
-A. Codex MCP server (direct, synchronous). Needs Claude Code on Macoi's computer, Codex CLI installed and signed in, and `claude mcp add codex -- codex mcp-server`. Then use the installed `codex-dispatch` skill: `sandbox: "read-only"` for reviews, `"workspace-write"` only for an assigned implementation, `cwd` = the repo, prompt fully self-contained. Status 2026-11-16: NOT connected, unverified.
+A. Codex MCP server (direct, synchronous). Needs Claude Code on Macoi's computer, Codex CLI installed and signed in, and `claude mcp add codex -- codex mcp-server`. Then use the installed `codex-dispatch` skill: `sandbox: "read-only"` for reviews, `"workspace-write"` only for an assigned implementation, `cwd` = the repo, prompt fully self-contained. Status 2026-11-16: NOT connected, unverified. Exact Windows steps: `references/connect-codex-windows.md`.
 
 B. Codex CLI one-shot from a terminal: `codex exec --sandbox read-only "<self-contained review prompt>"`, output pasted into the REVIEW block. Same prerequisites as A, minus the MCP registration. Unverified.
 
