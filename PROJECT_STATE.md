@@ -1,6 +1,6 @@
 # Project state (short)
 
-Last updated: 2026-11-16 by Claude (setup session, branch `ai-dev-system`, not pushed). Keep under 40 lines.
+Last updated: 2026-11-16 by Claude (setup session, branch `ai-dev-system`, pushed, not merged). Keep under 40 lines.
 
 ## Where things stand
 

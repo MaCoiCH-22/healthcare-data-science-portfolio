@@ -5,7 +5,7 @@ Replace CURRENT each time; move the old block to one history line. No keys, toke
 ## CURRENT
 
 - From: Claude (Cowork cloud session) To: MaCoi, then Codex for review
-- Branch: `ai-dev-system` (local commit, not pushed)
+- Branch: `ai-dev-system` (pushed to origin, not merged; main untouched)
 - Task: add shared agent files, repo skills and the portfolio audit. No page, CSS or project code changed.
 - Acceptance: `git diff main --stat` touches only agent files, `.agents/`, `.claude/`, `.gitignore`; `check.py` OK; audit 0 FAIL.
 - Claimed files: none (setup finished)
